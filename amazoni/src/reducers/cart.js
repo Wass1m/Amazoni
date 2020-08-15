@@ -1,4 +1,4 @@
-import { ADD_TO_CART, MODIFY_ITEM } from "../actions/types";
+import { ADD_TO_CART, MODIFY_ITEM, DELETE_ITEM } from "../actions/types";
 import Cookie from "js-cookie";
 
 const initialState = {
@@ -44,6 +44,14 @@ export default function (state = initialState, action) {
       Cookie.set("cartItems", JSON.stringify(modifyItem));
       return {
         cartItems: modifyItem,
+      };
+    case DELETE_ITEM:
+      const deleteItem = state.cartItems.filter(
+        (elm) => elm.product !== payload
+      );
+      Cookie.set("cartItems", JSON.stringify(deleteItem));
+      return {
+        cartItems: deleteItem,
       };
     default:
       return state;

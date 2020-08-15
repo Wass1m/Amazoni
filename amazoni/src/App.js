@@ -19,6 +19,7 @@ import Dashboard from "./components/Dashboard";
 import DashboardAdmin from "./components/DashboardAdmin";
 import AdminRoute from "./components/routing/AdminRoute";
 import CartScreen from "./components/cart/CartScreen";
+import CreateProduct from "./components/Admin/CreateProduct";
 
 function App() {
   useEffect(() => {
@@ -50,6 +51,11 @@ function App() {
                     exact
                     path="/dashboardAdmin"
                     component={DashboardAdmin}
+                  />
+                  <AdminRoute
+                    exact
+                    path="/createProduct"
+                    component={CreateProduct}
                   />
                 </Switch>
               </div>

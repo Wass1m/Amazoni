@@ -14,3 +14,5 @@ export const CLEAR_SINGLE = "CLEAR_SINGLE";
 export const ADD_TO_CART = "ADD_TO_CART";
 export const FAIL_ADD_CART = "FAIL_ADD_CART";
 export const MODIFY_ITEM = "MODIFY_ITEM";
+export const DELETE_ITEM = "DELETE_ITEM";
+export const CREATE_PRODUCT = "CREATE_PRODUCT";

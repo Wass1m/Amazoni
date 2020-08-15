@@ -27,7 +27,13 @@ const CartScreen = ({ auth, cart }) => {
             Subtotal :{" "}
             {cart.cartItems.reduce((sum, elm) => sum + parseInt(elm.qty), 0)}{" "}
           </h3>
-          <h3>Total : 100$ </h3>
+          <h3>
+            Total :${" "}
+            {cart.cartItems.reduce(
+              (sum, elm) => sum + parseInt(elm.qty) * parseInt(elm.price),
+              0
+            )}{" "}
+          </h3>
           <button className="btn primary">Proceed to checkout</button>
         </div>
       </div>

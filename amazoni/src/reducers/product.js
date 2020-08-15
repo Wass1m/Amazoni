@@ -3,6 +3,7 @@ import {
   GET_PRODUCTS,
   GET_SINGLE,
   CLEAR_SINGLE,
+  CREATE_PRODUCT,
 } from "../actions/types";
 const initialState = {
   loading: true,
@@ -16,7 +17,6 @@ export default function (state = initialState, action) {
   switch (type) {
     case GET_SINGLE:
       return { ...state, loading: false, product: payload };
-
     case GET_PRODUCTS:
       return {
         ...state,
@@ -34,6 +34,11 @@ export default function (state = initialState, action) {
         ...state,
         loading: false,
         product: null,
+      };
+    case CREATE_PRODUCT:
+      return {
+        ...state,
+        products: [...state.products, payload],
       };
     default:
       return state;
