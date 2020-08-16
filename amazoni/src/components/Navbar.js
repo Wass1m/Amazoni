@@ -1,24 +1,20 @@
-import React, { Fragment } from "react";
+import React, { Fragment, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { connect } from "react-redux";
 import { logout } from "../actions/auth";
+import { loadCart } from "../actions/cart";
 
-const Navbar = ({ auth, logout, cart }) => {
+const Navbar = ({ auth, logout, cart, loadCart }) => {
   const openMenu = () => {
     document.querySelector(".sidebar").classList.add("open");
   };
 
   const guesLinks = (
-    <div>
+    <Fragment>
+      {" "}
       <Link to="/login">Signin</Link>
       <Link to="/register">Signup</Link>
-      <Link to="/cart">
-        Cart{" "}
-        {cart.cartItems.length > 0 && (
-          <span className="cart-link">{cart.cartItems.length}</span>
-        )}
-      </Link>{" "}
-    </div>
+    </Fragment>
   );
 
   {
@@ -26,18 +22,21 @@ const Navbar = ({ auth, logout, cart }) => {
   }
 
   const authLinks = (
-    <div>
-      <a onClick={() => logout()} href="#!">
-        Logout
-      </a>
-    </div>
+    <a onClick={() => logout()} href="#!">
+      Logout
+    </a>
   );
 
   const adminLinks = (
-    <div>
-      <a href="/dashboardAdmin">Admin</a>{" "}
-    </div>
+    <Fragment>
+      <Link to="/dashboardAdmin">Admin</Link>{" "}
+      <Link to="/createProduct">Products</Link>{" "}
+    </Fragment>
   );
+
+  useEffect(() => {
+    loadCart();
+  }, []);
 
   return (
     <Fragment>
@@ -57,6 +56,14 @@ const Navbar = ({ auth, logout, cart }) => {
               ? adminLinks
               : null
             : null}
+          <Link to="/cart">
+            Cart{" "}
+            {cart.cartItems === undefined
+              ? null
+              : cart.cartItems.length > 0 && (
+                  <span className="cart-link">{cart.cartItems.length}</span>
+                )}
+          </Link>{" "}
         </div>
       </header>
     </Fragment>
@@ -68,4 +75,4 @@ const mapStateToProps = (state) => ({
   cart: state.cart,
 });
 
-export default connect(mapStateToProps, { logout })(Navbar);
+export default connect(mapStateToProps, { logout, loadCart })(Navbar);

@@ -4,11 +4,7 @@ import thunk from "redux-thunk";
 import rootReducer from "./reducers";
 import Cookie from "js-cookie";
 
-const cartItems = Cookie.getJSON("cartItems");
-
-const initialState = {
-  cart: { cartItems },
-};
+const initialState = {};
 
 const middleware = [thunk];
 

@@ -2,6 +2,7 @@ import React, { Fragment } from "react";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import CartItem from "./CartItem";
+import { Link } from "react-router-dom";
 
 const CartScreen = ({ auth, cart }) => {
   return (
@@ -13,7 +14,7 @@ const CartScreen = ({ auth, cart }) => {
               <h3>Shopping Cart</h3>
               <div>Price</div>
             </li>
-            {cart.cartItems.length > 0 ? (
+            {cart.cartItems === undefined ? null : cart.cartItems.length > 0 ? (
               cart.cartItems.map((item) => (
                 <CartItem key={item.product} cartItem={item} />
               ))
@@ -25,16 +26,26 @@ const CartScreen = ({ auth, cart }) => {
         <div className="cart-actions">
           <h3>
             Subtotal :{" "}
-            {cart.cartItems.reduce((sum, elm) => sum + parseInt(elm.qty), 0)}{" "}
+            {cart.cartItems === undefined
+              ? null
+              : cart.cartItems.reduce(
+                  (sum, elm) => sum + parseInt(elm.qty),
+                  0
+                )}{" "}
           </h3>
           <h3>
             Total :${" "}
-            {cart.cartItems.reduce(
-              (sum, elm) => sum + parseInt(elm.qty) * parseInt(elm.price),
-              0
-            )}{" "}
+            {cart.cartItems === undefined
+              ? null
+              : cart.cartItems.reduce(
+                  (sum, elm) => sum + parseInt(elm.qty) * parseInt(elm.price),
+                  0
+                )}{" "}
           </h3>
-          <button className="btn primary">Proceed to checkout</button>
+          <Link to="/shipping">
+            {" "}
+            <button className="btn primary"> Proceed to checkout </button>
+          </Link>
         </div>
       </div>
     </Fragment>

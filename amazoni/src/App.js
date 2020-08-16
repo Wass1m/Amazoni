@@ -20,6 +20,10 @@ import DashboardAdmin from "./components/DashboardAdmin";
 import AdminRoute from "./components/routing/AdminRoute";
 import CartScreen from "./components/cart/CartScreen";
 import CreateProduct from "./components/Admin/CreateProduct";
+import Checkout from "./components/order/CheckoutSteps";
+import Shipping from "./components/order/Shipping";
+import Payment from "./components/order/Payment";
+import PlaceOrder from "./components/order/PlaceOrder";
 
 function App() {
   useEffect(() => {
@@ -47,6 +51,14 @@ function App() {
                   <Route exact path="/login" component={Login} />
                   <Route exact path="/cart" component={CartScreen} />
                   <PrivateRoute exact path="/dashboard" component={Dashboard} />
+                  <PrivateRoute exact path="/shipping" component={Shipping} />
+                  <PrivateRoute exact path="/payment" component={Payment} />
+                  <PrivateRoute
+                    exact
+                    path="/placeorder"
+                    component={PlaceOrder}
+                  />
+
                   <AdminRoute
                     exact
                     path="/dashboardAdmin"

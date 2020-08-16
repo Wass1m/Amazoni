@@ -4,6 +4,7 @@ import {
   GET_SINGLE,
   CLEAR_SINGLE,
   CREATE_PRODUCT,
+  UPDATE_PRODUCT,
 } from "../actions/types";
 const initialState = {
   loading: true,
@@ -39,6 +40,13 @@ export default function (state = initialState, action) {
       return {
         ...state,
         products: [...state.products, payload],
+      };
+    case UPDATE_PRODUCT:
+      return {
+        ...state,
+        products: state.products.map((item) =>
+          item._id === payload.id ? payload : item
+        ),
       };
     default:
       return state;

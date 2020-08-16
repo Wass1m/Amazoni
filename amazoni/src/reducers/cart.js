@@ -1,4 +1,11 @@
-import { ADD_TO_CART, MODIFY_ITEM, DELETE_ITEM } from "../actions/types";
+import {
+  ADD_TO_CART,
+  MODIFY_ITEM,
+  DELETE_ITEM,
+  LOAD_CART,
+  ADD_SHIPPING,
+  ADD_PAYMENT,
+} from "../actions/types";
 import Cookie from "js-cookie";
 
 const initialState = {
@@ -52,6 +59,22 @@ export default function (state = initialState, action) {
       Cookie.set("cartItems", JSON.stringify(deleteItem));
       return {
         cartItems: deleteItem,
+      };
+    case LOAD_CART:
+      const cartItems = Cookie.getJSON("cartItems");
+      if (cartItems) {
+        return { ...state, cartItems };
+      }
+      return state;
+    case ADD_SHIPPING:
+      return {
+        ...state,
+        shipping: payload,
+      };
+    case ADD_PAYMENT:
+      return {
+        ...state,
+        payment: payload,
       };
     default:
       return state;

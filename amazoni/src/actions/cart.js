@@ -3,6 +3,9 @@ import {
   FAIL_ADD_CART,
   MODIFY_ITEM,
   DELETE_ITEM,
+  LOAD_CART,
+  ADD_SHIPPING,
+  ADD_PAYMENT,
 } from "../actions/types";
 import axios from "axios";
 import product from "../reducers/product";
@@ -56,4 +59,24 @@ export const deleteItem = (productID) => (dispatch) => {
       type: FAIL_ADD_CART,
     });
   }
+};
+
+export const loadCart = () => (dispatch) => {
+  dispatch({
+    type: LOAD_CART,
+  });
+};
+
+export const addShipping = (formData) => (dispatch) => {
+  dispatch({
+    type: ADD_SHIPPING,
+    payload: formData,
+  });
+};
+
+export const addPayment = (formData) => (dispatch) => {
+  dispatch({
+    type: ADD_PAYMENT,
+    payload: formData,
+  });
 };

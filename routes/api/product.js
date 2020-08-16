@@ -67,4 +67,39 @@ router.post("/", auth, isAdmin, async (req, res) => {
   }
 });
 
+router.put("/:id", auth, isAdmin, async (req, res) => {
+  const {
+    name,
+    price,
+    image,
+    brand,
+    category,
+    countInStock,
+    description,
+    rating,
+    numReviews,
+  } = req.body;
+
+  try {
+    const product = await Product.findById(req.params.id);
+    if (product) {
+      product.name = name;
+      product.price = price;
+      product.image = image;
+      product.brand = brand;
+      product.category = category;
+      product.countInStock = countInStock;
+      product.description = description;
+
+      const updatedProduct = await product.save();
+      return res.json(updatedProduct);
+    } else {
+      res.status(400).json({ msg: "NO PRODUCT FOUND" });
+    }
+  } catch (error) {
+    console.error(error);
+    res.status(500).send("SERVER ERROR");
+  }
+});
+
 module.exports = router;

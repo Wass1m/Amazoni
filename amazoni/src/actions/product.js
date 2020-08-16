@@ -4,12 +4,13 @@ import {
   GET_SINGLE,
   CLEAR_SINGLE,
   CREATE_PRODUCT,
+  UPDATE_PRODUCT,
 } from "./types";
 import axios from "axios";
 import { setAlert } from "./alert";
 
 export const getAllProducts = () => async (dispatch) => {
-  dispatch({ type: CLEAR_SINGLE });
+  // dispatch({ type: CLEAR_SINGLE });
 
   try {
     const res = await axios.get("/api/product");
@@ -63,6 +64,35 @@ export const createProduct = (formData) => async (dispatch) => {
     });
 
     dispatch(setAlert("Product created", "success"));
+  } catch (error) {
+    dispatch({
+      type: PRODUCTS_FAIL,
+      payload: {
+        msg: error.response.statusText,
+        status: error.response.status,
+      },
+    });
+  }
+};
+
+export const updateProduct = (formData, id) => async (dispatch) => {
+  const config = {
+    headers: {
+      "Content-Type": "application/json",
+    },
+  };
+
+  try {
+    const res = await axios.put(`/api/product/${id}`, formData, config);
+
+    dispatch({
+      type: UPDATE_PRODUCT,
+      payload: res.data,
+    });
+
+    dispatch(getAllProducts());
+
+    dispatch(setAlert("Product updated", "success"));
   } catch (error) {
     dispatch({
       type: PRODUCTS_FAIL,
